@@ -1,0 +1,281 @@
+@import url('https://fonts.googleapis.com/css2?family=Source+Sans+Pro&display=swap');
+
+*{
+    font-family: 'Source Sans Pro', sans-serif;
+}
+
+html, body{
+    min-height: 100%;
+    min-width: 100%;
+    height: 100%;
+    /* background-color: blue; */
+}
+
+body {
+    background-color: #2A2D2D;
+    /* background-color: red; */
+    margin: 0px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+
+    color: #FDF1E7;
+}
+
+svg{
+    background-color: #305555;
+    padding: 10px;
+    border-radius: 5px;
+}
+
+#titleContainer{
+    height: 10%;
+    width: 100%;
+    /* background-color: green; */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#title{
+    font-size: 28px;
+    color: #FDF1E7;
+    text-transform: uppercase;
+}
+
+#bodyContainer{
+    display: flex;
+    width: 100%;
+    height: 90%;
+}
+
+#canvas-panel{
+    width: 52.5%;
+    height: 100%;
+    /* background-color: green; */
+    min-height: 600px;
+    min-width: 950px;
+    margin-left: 4%;
+}
+
+#canvasTitleContainer{
+    height: 10%;
+    width: 100%;
+    /* background-color: green; */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#canvasTitle{
+    font-size: 28px;
+    color: #FDF1E7;
+    text-transform: uppercase;
+}
+
+#canvas{
+    min-height: 85%;
+    height: 85%;
+    max-height: 85%;
+    min-width: 950px;
+    width: 100%;
+    border: 1px solid white;
+    /* margin-left: 5%;
+    margin-top: 5%; */
+}
+
+#info-panel{
+    width: 21.25%;
+    height: 85%;
+    border: 1px solid white;
+    padding: 10px;
+    border-radius: 5px;
+    display: flex;
+    flex-direction: column;
+    background-color: #1b3030;
+    align-items: left;
+}
+
+#second-panel{
+    width: 15%;
+    height: 85%;
+    /* border: 1px solid white; */
+    padding: 10px;
+    border-radius: 5px;
+    display: flex;
+    flex-direction: column;
+    /* background-color: #1b3030; */
+    align-items: left;
+}
+
+#tooltips{
+    height: 10%;
+    width: 100%;
+    margin-bottom: 7px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+#tooltip-county{
+    visibility: hidden;
+    height: 50%;
+    width: auto;
+    margin-top: 2px;
+    color: #FDF1E7;
+    font-size: 24px;
+    margin-bottom: 5px;
+}
+
+#tooltip-stat{
+    visibility: hidden;
+    height: 50%;
+    width: auto;
+    margin-top: 2px;
+    color: #FDF1E7;
+    font-size: 24px;
+}
+
+#legend-scale{
+    background-color: #305555;
+    font-size: 18px;
+    width: 100%;
+    height: 35.5%;
+}
+
+#legend-labels{
+    /* background-color: red; */
+    width: 90%;
+    margin-left: 5%;
+    padding: 0px; /*Has right padding of 40px for some reason. TODO: Find source and fix*/
+}
+
+#legend-element{
+    display: flex;
+    align-items: center;
+    /* justify-content: ; */
+    margin-top: 2.5%;
+}
+
+#description {
+    margin-top: 5%;
+    height: 5%;
+    text-align: center;
+}
+
+#description a{
+    text-decoration: none;
+    color: #FDF1E7;
+    text-align: center;
+}
+
+#sliderBox {
+    margin-top: 10%;
+    height: 10%;
+    width: 100%;
+    display: flex;
+    display: none;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+#sliderValue {
+    text-align: center;
+}
+
+#boxContainer {
+    height: 150px;
+    overflow-y: auto;
+    overflow-x: hidden;
+    width: 100%;
+    margin-top: 5%;
+}
+
+#buttonBox {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+}
+
+#ageGroupContainer {
+    top: 63.5%;
+    height: 150px;
+    overflow-y: auto;
+    overflow-x: hidden;
+    width: 100%;
+    /* margin-top: 50.5%; */
+    position: relative;
+}
+
+#ageGroupButtons{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+}
+
+.datasetButton, .subdatasetButton {
+    background-color: #305555;
+    color: #FDF1E7;
+    width: 100%;
+    height: 35px;
+    border: 1px solid white;
+}
+
+#viewChanger{
+    width: 100%;
+    height: 5%;
+    display: flex;
+    flex-direction: row;
+}
+
+#quartileButton:hover, #sliderButton:hover {
+    background-color: #213a3a;
+    cursor: pointer;
+}
+
+button.active {
+    background-color: #213a3a !important;
+}
+
+#quartileButton, #sliderButton {
+    background-color: #305555;
+    color: #FDF1E7;
+    width: 50%;
+    height: 100%;
+    border: 1px solid #FDF1E7;
+    border-radius: 5px;
+}
+
+.county:hover{
+    fill: black
+}
+
+g{
+    color: #FDF1E7
+}
+
+#percent-count-selector{
+    margin-top: 5%;
+    width: 100%;
+    height: 5%;
+    display: flex;
+    flex-direction: row;
+}
+
+#countButton:hover, #percentButton:hover {
+    background-color: #213a3a;
+    cursor: pointer;
+}
+
+#countButton, #percentButton {
+    background-color: #305555;
+    color: #FDF1E7;
+    width: 50%;
+    height: 100%;
+    border: 1px solid #FDF1E7;
+    border-radius: 5px;
+}

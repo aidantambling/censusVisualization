@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./styles.css">
+    <title>Choropleth Map</title>
+    <script src="https://d3js.org/d3.v5.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/topojson/3.0.2/topojson.min.js" integrity="sha256-tHoAPGoNdhIR28YHl9DWLzeRfdwigkH7OCBXMrHXhoM=" crossorigin="anonymous"></script>
+</head>
+<body>
+    <div id="titleContainer">
+        <h2 id='title'>Census API Visualization Tool</h2>
+    </div>
+    <div id="canvasTitleContainer">
+        <h2 id='canvasTitle'>Loading....</h2>
+    </div>
+    <div id='bodyContainer'>
+        <div id="canvas-panel">
+            <svg id='canvas'>
+                
+            </svg>
+        </div>
+        <div id='info-panel'>
+            <div id="tooltips">
+                <div id='tooltip-county'>
+    
+                </div>
+                <div id='tooltip-stat'>
+    
+                </div>
+            </div>
+            <div id="viewChanger">
+                <button id="quartileButton" class="active">Quartile View</button>
+                <button id="sliderButton">Slider View</button>
+            </div>
+            <div id="legend-scale">
+                <ul id='legend-labels'>
+                    <li id="legend-element"><span style='background-color: tomato; display: flex; width: 2rem; height: 2rem; margin-right: 10%;'></span>Loading....</li>
+                    <li id="legend-element"><span style='background-color:orange; display: flex; width: 2rem; height: 2rem; margin-right: 10%;'></span>Loading....</li>
+                    <li id="legend-element"><span style='background-color: lightgreen; display: flex; width: 2rem; height: 2rem; margin-right: 10%;'></span>Loading....</li>
+                    <li id="legend-element"><span style='background-color: limegreen; display: flex; width: 2rem; height: 2rem; margin-right: 10%;'></span>Loading....</li>
+                    <li id="legend-element"><span style='background-color: black; display: flex; width: 2rem; height: 2rem; margin-right: 10%;'></span>Loading....</li>
+                </ul>
+                <div id="sliderBox">
+                    <input type="range" id="slider" name="slider" min="0" max="100000" value="0" step="5000">
+                    <div id="sliderValue">Loading....</div>
+                </div>
+            </div>
+            <div id='description'>Loading....</div>
+            <div id="boxContainer">
+                <div id="buttonBox">
+                    <button id="populationDataBtn" class="datasetButton">Population by County</button>
+                    <button id="maleDataBtn" class="datasetButton">Male Population by County</button>
+                    <button id="femaleDataBtn" class="datasetButton">Female Population by County</button>
+                    <button id="medianAgeBtn" class="datasetButton">Median Age by County</button>
+                    <button id="maleMedianAgeBtn" class="datasetButton">Male Median Age by County</button>
+                    <button id="femaleMedianAgeBtn" class="datasetButton">Female Median Age by County</button>
+                    <button id="whiteBtn" class="datasetButton">White Population by County</button>
+                    <button id="blackBtn" class="datasetButton">Black Population by County</button>
+                    <button id="amerindianBtn" class="datasetButton">American Indian + Alaska Native Population by County</button>
+                    <button id="asianBtn" class="datasetButton">Asian Population by County</button>
+                    <button id="islanderBtn" class="datasetButton">Hawaiian Native + Pacific Islander Population by County</button>
+                    <button id="otherRaceBtn" class="datasetButton">"Some Other Race" Population by County</button>
+                    <button id="twoRacesBtn" class="datasetButton">"Two or More Races" Population by County</button>
+                    <button id="hispanicBtn" class="datasetButton">Hispanic Population by County</button>
+                    <button id="oppSpouseBtn" class="datasetButton">Households (Opposite-Sex Spouse) by County</button>
+                    <button id="sameSpouseBtn" class="datasetButton">Households (Same-Sex Spouse) by County</button>
+                    <button id="oppPartnerBtn" class="datasetButton">Households (Opposite-Sex Partner) by County</button>
+                    <button id="samePartnerBtn" class="datasetButton">Households (Same-Sex Partner) by County</button>
+                    <button id="instiBtn" class="datasetButton">Instituionalized Population by County</button>
+                    <button id="maleInstiBtn" class="datasetButton">Male Instituionalized Population by County</button>
+                    <button id="femaleInstiBtn" class="datasetButton">Female Instituionalized Population by County</button>
+                </div>
+            </div>
+            <div id="percent-count-selector">
+                <button id="countButton" class="active">Count View</button>
+                <button id="percentButton">Percentage View</button>
+            </div>
+        </div>
+        <div id="second-panel">
+            <div id="ageGroupContainer">
+                <div id="ageGroupButtons" style="display: none;">
+    
+                </div>
+            </div>
+        </div>
+    </div>  
+</body>
+<script src="app.js" defer></script>
+</html>
