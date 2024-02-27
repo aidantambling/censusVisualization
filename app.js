@@ -1,250 +1,48 @@
-// links to data
+// link to svg data
 let countyURL = 'https://cdn.freecodecamp.org/testable-projects-fcc/data/choropleth_map/counties.json'
 
-let keywordToInfo = {
-    'populationDataBtn' : {
-        // 'api' : 'DP1_0001C',
-        'url' : 'https://api.census.gov/data/2020/dec/dp?get=NAME,GEO_ID,DP1_0001C&for=county:*',
-        'title' : 'Population',
-        'description' : 'Population data for the general population.',
-        'round' : 5000,
-        'sliderConfig' : {
-            'max' : "100000",
-            'step' : "5000",
+// read JSON file to get the api data
+let keywordToInfo
+async function loadData() {
+    try {
+        const response = await fetch("./apis.json");
+        if (!response.ok) {
+            throw new Error(`HTTP error! Status: ${response.status}`);
         }
-    },
-    'maleDataBtn' : {
-        // 'api' : 'DP1_0025C',
-        'url' : 'https://api.census.gov/data/2020/dec/dp?get=NAME,GEO_ID,DP1_0025C&for=county:*',
-        'title' : 'Male Population',
-        'description' : 'Population data for males.',
-        'round' : 5000,
-        'sliderConfig' : {
-            'max' : "100000",
-            'step' : "5000",
-        }
-    },
-    'femaleDataBtn' : {
-        // 'api' : 'DP1_0049C',
-        'url' : 'https://api.census.gov/data/2020/dec/dp?get=NAME,GEO_ID,DP1_0049C&for=county:*',
-        'title' : 'Female Population',
-        'description' : 'Population data for females.',
-        'round' : 5000,
-        'sliderConfig' : {
-            'max' : "100000",
-            'step' : "5000",
-        }
-    },
-    'medianAgeBtn' : {
-        // 'api' : 'DP1_0049C',
-        'url' : 'https://api.census.gov/data/2020/dec/dp?get=NAME,GEO_ID,DP1_0073C&for=county:*',
-        'title' : 'Median Age',
-        'description' : 'Median age of general population.',
-        'round' : 1,
-        'sliderConfig' : {
-            'max' : "70",
-            'step' : "1",
-        }
-    },
-    'femaleMedianAgeBtn' : {
-        // 'api' : 'DP1_0049C',
-        'url' : 'https://api.census.gov/data/2020/dec/dp?get=NAME,GEO_ID,DP1_0075C&for=county:*',
-        'title' : ' Female Median Age',
-        'description' : 'Median age of female population.',
-        'round' : 1,
-        'sliderConfig' : {
-            'max' : "70",
-            'step' : "1",
-        }
-    },
-    'maleMedianAgeBtn' : {
-        // 'api' : 'DP1_0049C',
-        'url' : 'https://api.census.gov/data/2020/dec/dp?get=NAME,GEO_ID,DP1_0074C&for=county:*',
-        'title' : 'Male Median Age',
-        'description' : 'Median age of male population.',
-        'round' : 1,
-        'sliderConfig' : {
-            'max' : "70",
-            'step' : "1",
-        }
-    },
-    'whiteBtn' : {
-        // 'api' : 'DP1_0049C',
-        'url' : 'https://api.census.gov/data/2020/dec/dp?get=NAME,GEO_ID,DP1_0078C&for=county:*',
-        'title' : 'White Population',
-        'description' : 'Population data for White people.',
-        'round' : 5,
-        'sliderConfig' : {
-            'max' : "100000",
-            'step' : "5000",
-        }
-    },
-    'blackBtn' : {
-        // 'api' : 'DP1_0049C',
-        'url' : 'https://api.census.gov/data/2020/dec/dp?get=NAME,GEO_ID,DP1_0079C&for=county:*',
-        'title' : 'Black Population',
-        'description' : 'Population data for Black people.',
-        'round' : 5,
-        'sliderConfig' : {
-            'max' : "75000",
-            'step' : "2500",
-        }
-    },
-    'amerindianBtn' : {
-        // 'api' : 'DP1_0049C',
-        'url' : 'https://api.census.gov/data/2020/dec/dp?get=NAME,GEO_ID,DP1_0080C&for=county:*',
-        'title' : 'American Indian and Alaska Native Population',
-        'description' : 'Population data for American Indian and Alaska Native people.',
-        'round' : 5,
-        'sliderConfig' : {
-            'max' : "40000",
-            'step' : "2000",
-        }
-    },
-    'asianBtn' : {
-        // 'api' : 'DP1_0049C',
-        'url' : 'https://api.census.gov/data/2020/dec/dp?get=NAME,GEO_ID,DP1_0081C&for=county:*',
-        'title' : 'Asian Population',
-        'description' : 'Population data for Asian people.',
-        'round' : 5,
-        'sliderConfig' : {
-            'max' : "75000",
-            'step' : "2500",
-        }
-    },
-    'islanderBtn' : {
-        // 'api' : 'DP1_0049C',
-        'url' : 'https://api.census.gov/data/2020/dec/dp?get=NAME,GEO_ID,DP1_0082C&for=county:*',
-        'title' : 'Native Hawaiian and Other Pacific Islander Population',
-        'description' : 'Population data for Native Hawaiian and Other Pacific Islanders.',
-        'round' : 1,
-        'sliderConfig' : {
-            'max' : "25000",
-            'step' : "1000",
-        }
-    },
-    'otherRaceBtn' : {
-        // 'api' : 'DP1_0049C',
-        'url' : 'https://api.census.gov/data/2020/dec/dp?get=NAME,GEO_ID,DP1_0083C&for=county:*',
-        'title' : 'Some Other Race Population',
-        'description' : 'Population data for those who identified as "some other race."',
-        'round' : 5,
-        'sliderConfig' : {
-            'max' : "50000",
-            'step' : "2500",
-        }
-    },
-    'twoRacesBtn' : {
-        // 'api' : 'DP1_0049C',
-        'url' : 'https://api.census.gov/data/2020/dec/dp?get=NAME,GEO_ID,DP1_0084C&for=county:*',
-        'title' : 'Two or More Races Population',
-        'description' : 'Population data for those who identified as "two or more races."',
-        'round' : 5,
-        'sliderConfig' : {
-            'max' : "50000",
-            'step' : "2500",
-        }
-    },
-    'hispanicBtn' : {
-        // 'api' : 'DP1_0049C',
-        'url' : 'https://api.census.gov/data/2020/dec/dp?get=NAME,GEO_ID,DP1_0096C&for=county:*',
-        'title' : 'Hispanic (of Any Race) Population',
-        'description' : 'Population data for Hispanics.',
-        'round' : 5,
-        'sliderConfig' : {
-            'max' : "100000",
-            'step' : "5000",
-        }
-    },
-    'oppSpouseBtn' : {
-        // 'api' : 'DP1_0049C',
-        'url' : 'https://api.census.gov/data/2020/dec/dp?get=NAME,GEO_ID,DP1_0115C&for=county:*',
-        'title' : 'Population with an Opposite-Sex Spouse',
-        'description' : 'Population data for residents with an opposite-sex spouse.',
-        'round' : 5,
-        'sliderConfig' : {
-            'max' : "100000",
-            'step' : "5000",
-        }
-    },
-    'oppSpouseBtn' : {
-        // 'api' : 'DP1_0049C',
-        'url' : 'https://api.census.gov/data/2020/dec/dp?get=NAME,GEO_ID,DP1_0115C&for=county:*',
-        'title' : 'Population with an Opposite-Sex Spouse',
-        'description' : 'Population data for residents with an opposite-sex spouse.',
-        'round' : 5,
-        'sliderConfig' : {
-            'max' : "100000",
-            'step' : "5000",
-        }
-    },
-    'sameSpouseBtn' : {
-        // 'api' : 'DP1_0049C',
-        'url' : 'https://api.census.gov/data/2020/dec/dp?get=NAME,GEO_ID,DP1_0116C&for=county:*',
-        'title' : 'Population with a Same-Sex Spouse',
-        'description' : 'Population data for residents with an opposite-sex spouse.',
-        'round' : 5,
-        'sliderConfig' : {
-            'max' : "5000",
-            'step' : "250",
-        }
-    },
-    'oppPartnerBtn' : {
-        // 'api' : 'DP1_0049C',
-        'url' : 'https://api.census.gov/data/2020/dec/dp?get=NAME,GEO_ID,DP1_0117C&for=county:*',
-        'title' : 'Population with an Opposite-Sex Partner',
-        'description' : 'Population data for residents with an unmarried opposite-sex partner.',
-        'round' : 5,
-        'sliderConfig' : {
-            'max' : "50000",
-            'step' : "2500",
-        }
-    },
-    'samePartnerBtn' : {
-        // 'api' : 'DP1_0049C',
-        'url' : 'https://api.census.gov/data/2020/dec/dp?get=NAME,GEO_ID,DP1_0118C&for=county:*',
-        'title' : 'Population with a Same-Sex Partner',
-        'description' : 'Population data for residents with an unmarried same-sex partner.',
-        'round' : 5,
-        'sliderConfig' : {
-            'max' : "2500",
-            'step' : "100",
-        }
-    },
-    'instiBtn' : {
-        // 'api' : 'DP1_0049C',
-        'url' : 'https://api.census.gov/data/2020/dec/dp?get=NAME,GEO_ID,DP1_0126C&for=county:*',
-        'title' : 'Institutionalized Population',
-        'description' : 'Population data for residents who are institutionalized in group quarters.',
-        'round' : 5,
-        'sliderConfig' : {
-            'max' : "10000",
-            'step' : "500",
-        }
-    },
-    'maleInstiBtn' : {
-        // 'api' : 'DP1_0049C',
-        'url' : 'https://api.census.gov/data/2020/dec/dp?get=NAME,GEO_ID,DP1_0127C&for=county:*',
-        'title' : 'Male Institutionalized Population',
-        'description' : 'Population data for male residents who are institutionalized in group quarters.',
-        'round' : 5,
-        'sliderConfig' : {
-            'max' : "10000",
-            'step' : "500",
-        }
-    },
-    'femaleInstiBtn' : {
-        // 'api' : 'DP1_0049C',
-        'url' : 'https://api.census.gov/data/2020/dec/dp?get=NAME,GEO_ID,DP1_0128C&for=county:*',
-        'title' : 'Female Institutionalized Population',
-        'description' : 'Population data for female residents who are institutionalized in group quarters.',
-        'round' : 5,
-        'sliderConfig' : {
-            'max' : "10000",
-            'step' : "500",
-        }
-    },
+        const data = await response.json();
+        keywordToInfo = data.Buttons;
+        console.log("keywordToInfo loaded:", keywordToInfo);
+    } catch (error) {
+        console.error("Unable to fetch data:", error);
+    }
 }
+
+// initial read of the data
+import { generateAgeGroupSchema, generateRaceGroupSchema } from "./interfaceHandling.js";
+d3.json(countyURL).then(async (data) => {
+    try {
+        if (data) {
+            await loadData()
+            countyData = topojson.feature(data, data.objects.counties).features
+            dataTarget = keywordToInfo["All"]["populationDataBtn"];
+            renderDataset(dataTarget)
+            const maleAgeGroups = generateAgeGroupSchema('Male', 26);
+            keywordToInfo["Gender"]["maleDataBtn"] = Object.assign({}, keywordToInfo["Gender"]["maleDataBtn"], maleAgeGroups);
+    
+            const popAgeGroups = generateAgeGroupSchema('American', 2);
+            keywordToInfo["All"]['populationDataBtn'] = Object.assign({}, keywordToInfo["All"]['populationDataBtn'], popAgeGroups);
+            console.log(keywordToInfo["All"]['populationDataBtn'])
+            
+            const femaleAgeGroups = generateAgeGroupSchema('Female', 50);
+            keywordToInfo["Gender"]['femaleDataBtn'] = Object.assign({}, keywordToInfo["Gender"]['femaleDataBtn'], femaleAgeGroups);
+            
+            const hispanicRaceGroups = generateRaceGroupSchema('Hispanic');
+            keywordToInfo["Race"]['hispanicBtn'] = Object.assign({}, keywordToInfo["Race"]['hispanicBtn'], hispanicRaceGroups);
+        }
+    } catch (error) {
+        console.error("Error initial read of data")
+    }
+})
 
 let countyData
 let populationData
@@ -263,7 +61,7 @@ function getMax(data){
     return [values.length - 1];
 }
 
-
+// re-configure the legend whenever the dataset is changed or map is re-colored
 function updateLegend(data) {
     const legend = d3.select("#legend-labels");
     legend.selectAll('*').remove();
@@ -325,8 +123,8 @@ function updateLegend(data) {
         .text(`No Data`)
 }
 
-// call with url to render a new map
-function updateMap(target) {
+// call to render a new map from some different API
+function renderDataset(target) {
     // we need to update the stored data, update the legend, update the text, update the slider, and update the map to reflect the newly stored data
     dataTarget = target
     let {url, title, description} = dataTarget
@@ -366,13 +164,14 @@ function updateMap(target) {
                 output.innerHTML = threshold;
 
                 canvas.selectAll('path').remove();
-                drawMap();
+                colorMap();
             }
         }
     );
 }
 
-let drawMap = () => {
+// re-color the map whenever a new dataset is loaded or legend is updated
+let colorMap = () => {
     canvas.selectAll('path')
         .data(countyData)
         .enter()
@@ -446,26 +245,88 @@ let drawMap = () => {
                 .style('visibility', 'hidden')
         })
 }
-
-// initial read of the data
-d3.json(countyURL).then(
-    (data, error) => {
-        if(error){
-            console.log(error)
-        }else{
-            countyData = topojson.feature(data, data.objects.counties).features
-            dataTarget = keywordToInfo['populationDataBtn'];
-            updateMap(dataTarget)
-        }
-    }
-)
-
+// --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 let activeButton = null;
 
-// Dataset Selection Buttons
+// Switch between quartile mode and slider mode
+const quartileButton = document.getElementById("quartileButton");
+const sliderButton = document.getElementById("sliderButton");
+const sliderBox = document.getElementById("sliderBox");
+let quartileMode = true;
+
+quartileButton.addEventListener('click', function() {
+    canvas.selectAll('path').remove();
+    quartileMode = true;
+    sliderBox.style.display = 'none';
+
+    colorMap();
+    updateLegend(populationData);
+    setButtonBackgroundColors();
+});
+
+sliderButton.addEventListener('click', function() {
+    canvas.selectAll('path').remove();
+    quartileMode = false;
+    sliderBox.style.display='flex';
+    
+    threshold = 0;
+    slider.value = 0;
+    output.innerHTML = threshold;
+
+    colorMap();
+    updateLegend(populationData);
+    setButtonBackgroundColors();
+});
+
+slider.oninput = function() {
+    output.innerHTML = this.value;
+    threshold = this.value;
+    canvas.selectAll('path').remove();
+    colorMap();
+    updateLegend(populationData);
+}
+// ---------------------------------------------------------------------------------------------------------------------------------------------------------------
+function setButtonBackgroundColors() {
+    if (quartileMode) {
+        sliderButton.classList.remove('active');
+        quartileButton.classList.add('active');
+    } else {
+        quartileButton.classList.remove('active');
+        sliderButton.classList.add('active');
+    }
+
+    if (percentMode){
+        percentButton.classList.add('active');
+        countButton.classList.remove('active');
+    } else {
+        percentButton.classList.remove('active');
+        countButton.classList.add('active');
+    }
+}
+
+document.querySelectorAll('.selectionButton').forEach(button => {
+    button.addEventListener('click', () => {
+        const buttonBox = document.getElementById("buttonBox");
+        buttonBox.innerHTML = "";
+
+        for (const key in keywordToInfo[button.id]){
+            const button1 = document.createElement('button')
+            button1.id = key;
+            button1.className="datasetButton";
+            button1.textContent = keywordToInfo[button.id][key].title;
+            button1.addEventListener('click', () => {
+                handleDataset(button1.id, keywordToInfo[button.id][button1.id]);
+            })
+    
+            buttonBox.appendChild(button1);
+        }
+    })
+})
+
+// Dataset Selection Button
 document.querySelectorAll('.datasetButton').forEach(button => {
     button.addEventListener('click', () => {
-        handleDataset(button.id, keywordToInfo[button.id]);
+        handleDataset(button.id, keywordToInfo["All"][button.id]);
     })
 })
 
@@ -486,82 +347,7 @@ function handleDataset(buttonID, dataTarget){
         generateAgeGroupButtons(dataTarget);
         document.getElementById('ageGroupButtons').style.display = 'block';
     }
-
 }
-
-// Switch between quartile mode and slider mode
-const quartileButton = document.getElementById("quartileButton");
-const sliderButton = document.getElementById("sliderButton");
-const sliderBox = document.getElementById("sliderBox");
-let quartileMode = true;
-
-quartileButton.addEventListener('click', function() {
-    canvas.selectAll('path').remove();
-    quartileMode = true;
-    updateLegend(populationData);
-    drawMap();
-    sliderBox.style.display = 'none';
-    setButtonBackgroundColors();
-});
-
-sliderButton.addEventListener('click', function() {
-    threshold = 0;
-    slider.value = 0;
-    output.innerHTML = threshold;
-    sliderBox.style.display='flex';
-    canvas.selectAll('path').remove();
-    quartileMode = false;
-    drawMap();
-    updateLegend(populationData);
-    setButtonBackgroundColors();
-});
-
-slider.oninput = function() {
-    output.innerHTML = this.value;
-    threshold = this.value;
-    canvas.selectAll('path').remove();
-    drawMap();
-    updateLegend(populationData);
-}
-
-function setButtonBackgroundColors() {
-    if (quartileMode) {
-        sliderButton.classList.remove('active');
-        quartileButton.classList.add('active');
-    } else {
-        quartileButton.classList.remove('active');
-        sliderButton.classList.add('active');
-    }
-
-    if (percentMode){
-        percentButton.classList.add('active');
-        countButton.classList.remove('active');
-    } else {
-        percentButton.classList.remove('active');
-        countButton.classList.add('active');
-    }
-}
-
-// Switch between count mode and percent mode
-const countButton = document.getElementById("countButton");
-const percentButton = document.getElementById("percentButton");
-let percentMode = false;
-
-countButton.addEventListener('click', function() {
-    console.log('count');
-    percentMode = false;
-    updateMap(dataTarget);
-    setButtonBackgroundColors();
-});
-
-percentButton.addEventListener('click', function() {
-    console.log('percent');
-    percentMode = true;
-    updateMap(dataTarget);
-    setButtonBackgroundColors();
-});
-
-
 
 function generateAgeGroupButtons(genderInfo){
     const ageGroupButtonsDiv = document.getElementById('ageGroupButtons');
@@ -587,7 +373,7 @@ function generateAgeGroupButtons(genderInfo){
         });
         button2.classList.add('active');
         dataTarget = genderInfo;
-        updateMap(dataTarget);
+        renderDataset(dataTarget);
     })
 
     for (const key in genderInfo) {
@@ -609,72 +395,25 @@ function generateAgeGroupButtons(genderInfo){
                 }
                 button.classList.add('active');
                 dataTarget = genderInfo[key];
-                updateMap(dataTarget);
+                renderDataset(dataTarget);
             })
         }
     }
 }
 
-// Function to generate schema for age groups
-function generateAgeGroupSchema(gender, offset) {
-    const schema = {};
-    for (let i = 0; i < 17; i++) {
-        const ageStart = i * 5;
-        const ageEnd = ageStart + 4;
-        const key = `${ageStart}-${ageEnd}`;
-        let roundValue = (i === 15 || i === 16) ? 100 : 250;
-        schema[key] = {
-            url: `https://api.census.gov/data/2020/dec/dp?get=NAME,GEO_ID,DP1_00${(offset + i).toString().padStart(2, '0')}C&for=county:*`,
-            title: `${key} years old`,
-            description: `Population data for ${gender.toLowerCase()}s ${key} years old.`,
-            round: roundValue,
-            sliderConfig : {
-                max : 'any',
-                step : 250,
-            },
-        };
-    }
-    return schema;
-}
+// Switch between count mode and percent mode
+const countButton = document.getElementById("countButton");
+const percentButton = document.getElementById("percentButton");
+let percentMode = false;
 
-function generateRaceGroupSchema(race) {
-    const schema = {};
-    const races = ["White", "Black", "American Indian + Alaska Native", "Asian", "Native Hawaiian + Other Pacific Islander", "Some Other Race", "Two Or More Races"]
-    for (let i = 0; i < races.length; i++) {
+countButton.addEventListener('click', function() {
+    percentMode = false;
+    renderDataset(dataTarget);
+    setButtonBackgroundColors();
+});
 
-        const key = races[i];
-        let roundValue = 1;
-        let dPval
-        let stepVal = (i === 4) ? 100 : 250;
-        if (97 + i < 100){
-            dPval = `https://api.census.gov/data/2020/dec/dp?get=NAME,GEO_ID,DP1_00${(97 + i).toString().padStart(0, '0')}C&for=county:*`
-        }
-        else {
-            dPval = `https://api.census.gov/data/2020/dec/dp?get=NAME,GEO_ID,DP1_0${(97 + i).toString().padStart(0, '0')}C&for=county:*`
-        }
-        schema[key] = {
-            url: dPval,
-            title: `${key}`,
-            description: `Population data for ${key} Hispanics`,
-            round: roundValue,
-            sliderConfig : {
-                max : 'any',
-                step : stepVal,
-            },
-        };
-    }
-    return schema;
-}
-
-// Generate male age group schema
-const maleAgeGroups = generateAgeGroupSchema('Male', 26);
-keywordToInfo['maleDataBtn'] = Object.assign({}, keywordToInfo['maleDataBtn'], maleAgeGroups);
-
-const popAgeGroups = generateAgeGroupSchema('American', 2);
-keywordToInfo['populationDataBtn'] = Object.assign({}, keywordToInfo['populationDataBtn'], popAgeGroups);
-
-const femaleAgeGroups = generateAgeGroupSchema('Female', 50);
-keywordToInfo['femaleDataBtn'] = Object.assign({}, keywordToInfo['femaleDataBtn'], femaleAgeGroups);
-
-const hispanicRaceGroups = generateRaceGroupSchema('Hispanic');
-keywordToInfo['hispanicBtn'] = Object.assign({}, keywordToInfo['hispanicBtn'], hispanicRaceGroups);
+percentButton.addEventListener('click', function() {
+    percentMode = true;
+    renderDataset(dataTarget);
+    setButtonBackgroundColors();
+});

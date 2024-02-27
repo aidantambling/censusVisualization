@@ -48,29 +48,21 @@
                 </div>
             </div>
             <div id='description'>Loading....</div>
+            <div id="selectionContainer">
+                <button id="slideLeft" type="button">Prev</button>
+                <div id="buttonSelector">
+                    <button class="selectionButton" id="All">All Population</button>
+                    <button class="selectionButton" id="Gender">Population by Gender</button>
+                    <button class="selectionButton" id="Race">Population by Race</button>
+                    <button class="selectionButton" id="Sexuality">Population by Sexuality</button>
+                    <button class="selectionButton" id="Institutionalized">Institutionalized Population</button>
+                    <button class="selectionButton" id="Median Age">Population by Median Age</button>
+                </div>
+                <button id="slideRight" type="button">Next</button>
+            </div>
             <div id="boxContainer">
                 <div id="buttonBox">
-                    <button id="populationDataBtn" class="datasetButton">Population by County</button>
-                    <button id="maleDataBtn" class="datasetButton">Male Population by County</button>
-                    <button id="femaleDataBtn" class="datasetButton">Female Population by County</button>
-                    <button id="medianAgeBtn" class="datasetButton">Median Age by County</button>
-                    <button id="maleMedianAgeBtn" class="datasetButton">Male Median Age by County</button>
-                    <button id="femaleMedianAgeBtn" class="datasetButton">Female Median Age by County</button>
-                    <button id="whiteBtn" class="datasetButton">White Population by County</button>
-                    <button id="blackBtn" class="datasetButton">Black Population by County</button>
-                    <button id="amerindianBtn" class="datasetButton">American Indian + Alaska Native Population by County</button>
-                    <button id="asianBtn" class="datasetButton">Asian Population by County</button>
-                    <button id="islanderBtn" class="datasetButton">Hawaiian Native + Pacific Islander Population by County</button>
-                    <button id="otherRaceBtn" class="datasetButton">"Some Other Race" Population by County</button>
-                    <button id="twoRacesBtn" class="datasetButton">"Two or More Races" Population by County</button>
-                    <button id="hispanicBtn" class="datasetButton">Hispanic Population by County</button>
-                    <button id="oppSpouseBtn" class="datasetButton">Households (Opposite-Sex Spouse) by County</button>
-                    <button id="sameSpouseBtn" class="datasetButton">Households (Same-Sex Spouse) by County</button>
-                    <button id="oppPartnerBtn" class="datasetButton">Households (Opposite-Sex Partner) by County</button>
-                    <button id="samePartnerBtn" class="datasetButton">Households (Same-Sex Partner) by County</button>
-                    <button id="instiBtn" class="datasetButton">Instituionalized Population by County</button>
-                    <button id="maleInstiBtn" class="datasetButton">Male Instituionalized Population by County</button>
-                    <button id="femaleInstiBtn" class="datasetButton">Female Instituionalized Population by County</button>
+                    <button id="populationDataBtn" class="datasetButton">Population</button>
                 </div>
             </div>
             <div id="percent-count-selector">
@@ -87,5 +79,6 @@
         </div>
     </div>  
 </body>
-<script src="app.js" defer></script>
+<script type="module" src="app.js" defer></script>
+<script type="module" src="interfaceHandling.js" defer></script>
 </html>

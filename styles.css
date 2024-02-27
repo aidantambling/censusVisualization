@@ -190,7 +190,7 @@ svg{
     overflow-y: auto;
     overflow-x: hidden;
     width: 100%;
-    margin-top: 5%;
+
 }
 
 #buttonBox {
@@ -232,6 +232,32 @@ svg{
     flex-direction: row;
 }
 
+#selectionContainer{
+    width: 100%;
+    display: flex;
+}
+
+#buttonSelector{
+    width: 80%;
+    height: 100%;
+    display: flex;
+    flex-direction: row;
+    overflow-x: auto;
+    overflow-y: hidden;
+    scrollbar-width: none;
+}
+
+.selectionButton{
+    background-color: #305555;
+    color: #FDF1E7;
+    width: 50%;
+    min-width: 33%;
+    height: 100%;
+    border: 1px solid #FDF1E7;
+    border-radius: 5px;
+}
+
+
 #quartileButton:hover, #sliderButton:hover {
     background-color: #213a3a;
     cursor: pointer;
@@ -245,6 +271,7 @@ button.active {
     background-color: #305555;
     color: #FDF1E7;
     width: 50%;
+    min-width: 33%;
     height: 100%;
     border: 1px solid #FDF1E7;
     border-radius: 5px;
